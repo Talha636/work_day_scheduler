@@ -1,20 +1,20 @@
-let currentDay = $('#currentDay');
-let container = $('#container');
+$('#currentDay').text(moment().format('hh:mm ddd, MMM do YYYY'));
 
-function displayTime() {
-    let now = moment().format('dddd, MMM Do');
-    currentDay.text(now);
+function colors() {
+    let hour = moment().hours();
+    $('.time-block').each(function() {
+        let hourNow = parseInt($(this).attr('id'));
+        if (hourNow < hour) {
+            $(this).addClass('past');
+        } else if (hourNow === hour) {
+            $(this).addClass('present');
+        } else {
+            $(this).addClass('future');
+        }
+    });
 }
 
-function timeBlock() {
-    for (i = 0; i < 24; i++) {
-        let row = $('<div>').addClass('row');
-        let hour = $('<div>').addClass('hour');
-        let description = $('<div>').addClass('description');
-        let save = $('<button>').addClass('saveBtn col-lg-1');
-        row.append(hour, description, save);
-        container.append(row);
-    }
-}
-timeBlock();
-displayTime();
+
+
+
+colors();
