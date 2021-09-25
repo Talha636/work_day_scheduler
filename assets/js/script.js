@@ -1,3 +1,5 @@
+let btn = $('.saveBtn');
+
 $('#currentDay').text(moment().format('hh:mm ddd, MMM do YYYY'));
 
 function colors() {
@@ -14,7 +16,22 @@ function colors() {
     });
 }
 
+btn.on('click', function() {
+    let hour = $(this).siblings('.hour').text();
+    let desc = $(this).siblings('.description').val();
+    localStorage.setItem(hour, desc);
+})
 
+function preTasks() {
+    $('.hour').each(function() {
+        let hour = $(this).text();
+        let desc = localStorage.getItem(hour);
+        if (desc !== null) {
+            $(this).siblings('.description').val(desc);
+        }
+    });
+}
 
 
 colors();
+preTasks();
